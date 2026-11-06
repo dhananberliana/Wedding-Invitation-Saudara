@@ -54,8 +54,8 @@ export const WEDDING_CONFIG = Object.freeze({
   },
 
   gift: {
-    bankAccountName: 'BCA a.n. Dhanan Arieyasa',
-    bankAccount: '7705388041',
+    bankAccountName: 'BCA a.n. Ni Putu Berliana Maharani',
+    bankAccount: '6690609477',
 
     deliveryAddress:
       'Banjar Dauh Peken, Penarungan - Mengwi',
