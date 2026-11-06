@@ -1541,14 +1541,7 @@ function init() {
 
   setupCountdown();
 
-  const syncAttendance =
-    setupAttendanceToggle();
-
-  setupRsvp(
-    syncAttendance
-  );
-
-  setupWishesPolling();
+  // Versi saudara: RSVP dan polling ucapan dinonaktifkan.
 
   setupBankAccountCopy();
 }
