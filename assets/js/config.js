@@ -15,14 +15,14 @@ export const WEDDING_CONFIG = Object.freeze({
 
     date: 'Jumat, 11 Desember 2026',
     time: '08:00 - Selesai WITA',
-    venueName: 'Petang, Bali',
+    venueName: 'Rumah Banjar Dauh Peken, Penarungan',
 
     displayDateTime: 'Jumat, 11 Desember 2026 • 08:00 WITA',
 
     start: '2026-12-11T08:00:00+08:00',
     end: null,
 
-    venueAddress: 'Petang, Bali',
+    venueAddress: 'Rumah Banjar Dauh Peken, Desa Adat Penarungan, Kecamatan Mengwi, Kab. Badung - Bali (Google Maps: G-BOY CELL)',
 
     mapsUrl:
       'https://maps.app.goo.gl/hnmXFSc1iyGrRqjJ9',
@@ -42,8 +42,8 @@ export const WEDDING_CONFIG = Object.freeze({
       start: '2026-12-11T08:00:00+08:00',
       end: null,
 
-      venueName: 'Petang, Bali',
-      venueAddress: 'Petang, Bali',
+      venueName: 'Rumah Banjar Dauh Peken, Penarungan',
+      venueAddress: 'Rumah Banjar Dauh Peken, Desa Adat Penarungan, Kecamatan Mengwi, Kab. Badung - Bali (Google Maps: G-BOY CELL)',
 
       mapsUrl:
         'https://maps.app.goo.gl/hnmXFSc1iyGrRqjJ9',
