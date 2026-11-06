@@ -11,7 +11,7 @@ export const WEDDING_CONFIG = Object.freeze({
   },
 
   event: {
-    title: 'Acara Ngidih & Mepamit Dhanan & Berliana',
+    title: 'Upacara Pawiwahan Dhanan & Berliana',
 
     date: 'Jumat, 11 Desember 2026',
     time: '08:00 - Selesai WITA',
@@ -33,8 +33,8 @@ export const WEDDING_CONFIG = Object.freeze({
 
   events: {
     reception: {
-      label: 'Ngidih & Mepamit',
-      title: 'Ngidih & Mepamit Pernikahan Dhanan & Berliana',
+      label: 'Upacara Pawiwahan',
+      title: 'Upacara Pawiwahan Dhanan & Berliana',
 
       displayDate: 'Jumat, 11 Desember 2026',
       displayTime: '08:00 - Selesai WITA',
