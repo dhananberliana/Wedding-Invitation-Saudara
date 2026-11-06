@@ -11,45 +11,45 @@ export const WEDDING_CONFIG = Object.freeze({
   },
 
   event: {
-    title: 'Resepsi Pernikahan Dhanan & Berliana',
+    title: 'Acara Ngidih & Mepamit Dhanan & Berliana',
 
     date: 'Jumat, 11 Desember 2026',
-    time: '16.00 – 22.00 WITA',
+    time: '08:00 - Selesai WITA',
     venueName: 'Petang, Bali',
 
-    displayDateTime: 'Jumat, 11 Desember 2026 • 16.00 WITA',
+    displayDateTime: 'Jumat, 11 Desember 2026 • 08:00 WITA',
 
-    start: '2026-12-11T16:00:00+08:00',
+    start: '2026-12-11T08:00:00+08:00',
     end: '2026-12-11T22:00:00+08:00',
 
     venueAddress: 'Petang, Bali',
 
     mapsUrl:
-      'https://maps.app.goo.gl/P7p5qe1bmp2mH7tQ6?g_st=aw',
+      'https://maps.app.goo.gl/hnmXFSc1iyGrRqjJ9',
 
     description:
-      'Dengan penuh sukacita, kami mengundang keluarga dan sahabat untuk hadir dan memberikan doa restu pada resepsi pernikahan Dhanan & Berliana.'
+      'Dengan penuh sukacita, kami mengundang keluarga dan sahabat untuk hadir dan memberikan doa restu pada acara Ngidih & Mepamit Dhanan & Berliana.'
   },
 
   events: {
     reception: {
-      label: 'Resepsi',
-      title: 'Resepsi Pernikahan Dhanan & Berliana',
+      label: 'Ngidih & Mepamit',
+      title: 'Ngidih & Mepamit Pernikahan Dhanan & Berliana',
 
       displayDate: 'Jumat, 11 Desember 2026',
       displayTime: '16.00 – 22.00 WITA',
 
-      start: '2026-12-11T16:00:00+08:00',
+      start: '2026-12-11T08:00:00+08:00',
       end: '2026-12-11T22:00:00+08:00',
 
       venueName: 'Petang, Bali',
       venueAddress: 'Petang, Bali',
 
       mapsUrl:
-        'https://maps.app.goo.gl/P7p5qe1bmp2mH7tQ6?g_st=aw',
+        'https://maps.app.goo.gl/hnmXFSc1iyGrRqjJ9',
 
       description:
-        'Dengan penuh sukacita, kami mengundang keluarga dan sahabat untuk hadir dan memberikan doa restu pada resepsi pernikahan Dhanan & Berliana.'
+        'Dengan penuh sukacita, kami mengundang keluarga dan sahabat untuk hadir dan memberikan doa restu pada acara Ngidih & Mepamit Dhanan & Berliana.'
     }
   },
 
