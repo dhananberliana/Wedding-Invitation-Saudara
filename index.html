@@ -1227,6 +1227,20 @@
 .wedding-video__preview span { position:absolute; left:50%; top:50%; transform:translate(-50%,-50%); display:grid; place-items:center; width:64px; height:64px; border-radius:50%; background:rgba(0,0,0,.5); font-size:26px; }
 .wedding-video__preview[hidden] { display:none; }
 </style>
+
+<style>
+/* Khusus undangan saudara: peta lokasi acara pagi */
+.saudara-venue{display:grid;gap:1rem;max-width:550px;margin:1.5rem auto 0}
+.saudara-map-preview{display:block;position:relative;overflow:hidden;border-radius:18px;min-height:175px;box-shadow:0 10px 35px #23170c22;isolation:isolate;text-decoration:none}
+.saudara-map-preview svg{display:block;width:100%;height:230px;object-fit:cover}
+.saudara-map-preview::after{content:"";position:absolute;inset:35% 0 0;background:linear-gradient(transparent,#251d18b8);pointer-events:none}
+.saudara-map-label{position:absolute;z-index:1;bottom:16px;left:20px;right:20px;display:grid;gap:3px;text-align:left;color:#fffdf8;text-shadow:0 1px 4px #241a15a0}
+.saudara-map-label__eyebrow{font:600 10px/1.4 system-ui,sans-serif;letter-spacing:.17em}
+.saudara-map-label strong{font:italic 24px/1.2 Georgia,serif}
+.saudara-map-label small{font:400 12px/1.4 system-ui,sans-serif}
+.saudara-maps-button{justify-self:center;text-align:center}
+@media(max-width:480px){.saudara-venue{width:100%}.saudara-map-preview svg{height:195px}.saudara-map-label strong{font-size:21px}}
+</style>
 </head>
 
 <body class="is-locked">
@@ -1344,7 +1358,7 @@
 
   <noscript>
     <div class="noscript-banner">
-      Mohon aktifkan JavaScript untuk menggunakan fitur konfirmasi kehadiran dan undangan interaktif.
+      Mohon aktifkan JavaScript agar undangan interaktif dapat ditampilkan dengan baik.
     </div>
   </noscript>
 
@@ -1753,13 +1767,13 @@
         
 
         <p class="eyebrow">
-          Mark your calendar
+          Upacara Pernikahan
         </p>
 
         <h2
           class="display-title display-title--light"
           id="countdown-title">
-          Save the Date
+          Acara Ngidih &amp; Mepamit
         </h2>
 
         <p class="body-copy countdown-invitation-copy">
@@ -1770,7 +1784,7 @@
 
         <div class="countdown-event-details">
           <p><time datetime="2026-12-11">Jumat, 11 Desember 2026</time></p>
-          <p>Jam 16.00 - Selesai</p>
+          <p>Jam 08:00 - Selesai WITA</p>
         </div>
 
         <div
@@ -1817,28 +1831,20 @@
 
 
 
-        <div class="countdown-calendar-action">
-          <a
-                  class="button button--dark"
-                  id="calendar-link"
-                  href="#"
-                  target="_blank"
-                  rel="noopener noreferrer">
-
-                  <span
-                    class="event-card__button-icon"
-                    aria-hidden="true">
-                    🗓
-                  </span>
-
-                  Tambahkan ke kalender
-
-                </a>
-          <a class="button button--outline-dark countdown-location-link"
-             href="https://www.google.com/maps/place/8%C2%B023'45.9%22S+115%C2%B013'12.3%22E/@-8.3961129,115.2200848,21z/data=!4m5!3m4!4b1!8m2!3d-8.3960833!4d115.2200833?entry=ttu&amp;g_ep=EgoyMDI2MTAyMC4wIKXMDSoASAFQAw%3D%3D"
-             target="_blank" rel="noopener noreferrer">
-            <svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12S4 16 4 10a8 8 0 1 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
-            Lokasi
+        <div class="saudara-venue" aria-label="Peta lokasi acara">
+          <a class="saudara-map-preview" href="https://maps.app.goo.gl/hnmXFSc1iyGrRqjJ9" target="_blank" rel="noopener noreferrer" aria-label="Buka lokasi acara Ngidih dan Mepamit di Google Maps">
+            <svg viewBox="0 0 680 260" role="img" aria-label="Ilustrasi peta lokasi. Ketuk untuk melihat peta sebenarnya di Google Maps." preserveAspectRatio="xMidYMid slice">
+              <rect width="680" height="260" fill="#e6e7d9"/>
+              <g fill="#c9d6c6"><path d="M0 3h145l70 76-58 64L0 118z"/><path d="M510 0h170v131l-76-26-81 34-62-72z"/><path d="M92 260l44-77 89-7 59 84z"/></g>
+              <g fill="none" stroke="#fffdf8" stroke-width="24" stroke-linecap="round"><path d="M-40 208C132 120 215 225 341 139S538 53 721 82"/><path d="M287-30 310 75 380 171 442 300"/></g>
+              <g fill="none" stroke="#c7baa1" stroke-width="2.5" stroke-linecap="round"><path d="M-40 208C132 120 215 225 341 139S538 53 721 82"/><path d="M287-30 310 75 380 171 442 300"/></g>
+              <g transform="translate(340 121)"><path d="M0-44C-25-44-44-25-44 0c0 32 44 66 44 66S44 32 44 0c0-25-19-44-44-44Z" fill="#7a493c" stroke="#fff7ed" stroke-width="5"/><circle cy="-1" r="14" fill="#fff7ed"/></g>
+            </svg>
+            <span class="saudara-map-label"><span class="saudara-map-label__eyebrow">PETA LOKASI ACARA</span><strong>Ngidih &amp; Mepamit</strong><small>Ketuk peta untuk membuka lokasi sebenarnya</small></span>
+          </a>
+          <a class="button button--outline-dark saudara-maps-button" href="https://maps.app.goo.gl/hnmXFSc1iyGrRqjJ9" target="_blank" rel="noopener noreferrer" id="maps-link" aria-label="Lihat lokasi acara di Google Maps">
+            <svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12S4 16 4 10a8 8 0 1 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+            Lihat di Google Maps
           </a>
         </div>
 
@@ -1952,188 +1958,6 @@
   </div>
 
 </section>
-
-    <!-- =====================================================
-         RSVP
-    ====================================================== -->
-
-    <section
-      class="section section--dark"
-      id="rsvp"
-      aria-labelledby="rsvp-title">
-
-      <div class="section-shell rsvp-layout">
-
-        <div class="rsvp-intro reveal">
-
-          <p class="eyebrow">
-            Mohon Konfirmasi
-          </p>
-
-          <h2
-            class="display-title display-title--light"
-            id="rsvp-title">
-            Apakah Anda Akan Hadir?
-          </h2>
-
-          <p class="body-copy body-copy--light">
-            Konfirmasi kehadiran Anda sangat membantu kami mempersiapkan acara dengan baik.
-          </p>
-
-        </div>
-
-        <form
-          class="rsvp-form reveal"
-          id="rsvp-form"
-          novalidate>
-
-          <div class="field-group">
-
-<input
-              id="full-name"
-              name="fullName"
-              type="text"
-              autocomplete="name"
-              maxlength="120"
-              required
-              placeholder="Masukan Nama Anda"
-              aria-label="Nama Anda">
-
-            <p
-              class="field-error"
-              id="full-name-error"
-              aria-live="polite">
-            </p>
-
-          </div>
-
-          <fieldset class="field-group fieldset-reset">
-
-            <legend>
-              Konfirmasi Kehadiran
-            </legend>
-
-            <div class="attendance-options">
-
-              <label class="choice-card">
-
-                <input
-                  type="radio"
-                  name="attendance"
-                  value="attending"
-                  required>
-
-                <span>
-                  Hadir
-                </span>
-
-              </label>
-
-              <label class="choice-card">
-
-                <input
-                  type="radio"
-                  name="attendance"
-                  value="not-attending"
-                  required>
-
-                <span>
-                  Tidak Hadir
-                </span>
-
-              </label>
-
-            </div>
-
-            <p
-              class="field-error"
-              id="attendance-error"
-              aria-live="polite">
-            </p>
-
-          </fieldset>
-
-
-
-          <div class="field-group">
-
-            <label for="message">
-              Ucapan &amp; Pesan
-            </label>
-
-            <textarea
-              id="message"
-              name="message"
-              rows="5"
-              maxlength="1000"
-              placeholder="Tuliskan doa dan ucapan hangat untuk kami"></textarea>
-
-          </div>
-
-          <button
-            class="button button--light button--full"
-            id="rsvp-submit"
-            type="submit">
-            <svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-right:.5rem"><path d="m22 2-7 20-4-9-9-4 20-7ZM22 2 11 13"/></svg>
-            <span>Kirim</span>
-          </button>
-
-          <p
-            class="form-status"
-            id="rsvp-status"
-            role="status"
-            aria-live="polite">
-          </p>
-
-        </form>
-
-      </div>
-
-    </section>
-
-    <!-- =====================================================
-         WISHES
-    ====================================================== -->
-
-    <section
-      class="section section--paper"
-      id="wishes"
-      aria-labelledby="wishes-title">
-
-      <div class="section-shell wishes-shell">
-
-        <div class="wishes-heading reveal">
-
-          <p class="eyebrow eyebrow--dark">
-            Dari Hati
-          </p>
-
-          <h2
-            class="display-title"
-            id="wishes-title">
-            Ucapan Pernikahan
-          </h2>
-
-          <p class="body-copy">
-            Ucapan dari keluarga dan sahabat akan tampil di sini.
-          </p>
-
-        </div>
-
-        <div
-          class="wishes-list"
-          id="wishes-list"
-          aria-live="polite">
-
-          <p class="wishes-empty">
-            Belum ada ucapan. Jadilah yang pertama memberikan ucapan.
-          </p>
-
-        </div>
-
-      </div>
-
-    </section>
 
     <section class="story story--album" aria-labelledby="story-title">
       <div class="section-shell story-heading reveal">
