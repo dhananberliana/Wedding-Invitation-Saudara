@@ -20,7 +20,7 @@ export const WEDDING_CONFIG = Object.freeze({
     displayDateTime: 'Jumat, 11 Desember 2026 • 08:00 WITA',
 
     start: '2026-12-11T08:00:00+08:00',
-    end: '2026-12-11T22:00:00+08:00',
+    end: null,
 
     venueAddress: 'Petang, Bali',
 
@@ -37,10 +37,10 @@ export const WEDDING_CONFIG = Object.freeze({
       title: 'Ngidih & Mepamit Pernikahan Dhanan & Berliana',
 
       displayDate: 'Jumat, 11 Desember 2026',
-      displayTime: '16.00 – 22.00 WITA',
+      displayTime: '08:00 - Selesai WITA',
 
       start: '2026-12-11T08:00:00+08:00',
-      end: '2026-12-11T22:00:00+08:00',
+      end: null,
 
       venueName: 'Petang, Bali',
       venueAddress: 'Petang, Bali',
