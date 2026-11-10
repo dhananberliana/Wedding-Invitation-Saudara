@@ -1954,6 +1954,29 @@
         </div>
       </div>
     
+      <section class="section-shell" id="guest-album" data-endpoint="" aria-labelledby="guest-album-title" hidden>
+        <h2 id="guest-album-title">Momen dari Tamu</h2>
+        <p>Abadikan momen hari ini dan bagikan ke album bersama. Foto yang disetujui dapat dilihat oleh siapa pun yang membuka undangan.</p>
+        <form>
+          <label for="guest-album-photo">Ambil Foto</label>
+          <input id="guest-album-photo" type="file" accept="image/*" capture="environment" required>
+          <img data-preview hidden alt="Pratinjau foto sebelum dikirim">
+          <button type="submit" disabled>Kirim Foto</button>
+        </form>
+        <p role="status"></p>
+        <div data-gallery aria-label="Foto dari tamu"></div>
+      </section>
+      <style>
+        #guest-album { text-align: center; margin-block: 2rem; }
+        #guest-album form { display: grid; justify-items: center; gap: .75rem; margin-block: 1rem; }
+        #guest-album input { max-width: 100%; }
+        #guest-album img { max-width: 100%; border-radius: .75rem; }
+        #guest-album [data-preview] { width: min(100%, 18rem); }
+        #guest-album [data-gallery] { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 8rem), 1fr)); gap: .75rem; }
+        #guest-album [data-gallery] img { width: 100%; aspect-ratio: 4 / 5; object-fit: cover; }
+      </style>
+      <script type="module" src="assets/js/guest-album.js"></script>
+
       <div class="section-shell wedding-video">
         <div class="wedding-video__frame" id="wedding-video-frame">
           <button class="wedding-video__preview" type="button" aria-label="Putar video Dhanan dan Berliana" aria-expanded="false"><img src="https://i.ytimg.com/vi/1AHSivban4c/hqdefault.jpg" alt="Video Dhanan dan Berliana" loading="lazy"><span aria-hidden="true">▶</span></button>
