@@ -14,7 +14,6 @@ function startAlbum() {
   const randomId = () => crypto.randomUUID().replaceAll('-', '');
   const guest = new URLSearchParams(location.search).get('to')?.trim();
   let remaining = 0;
-  input.disabled = true;
   let draft;
   let selection = 0;
 
@@ -51,8 +50,8 @@ function startAlbum() {
       draft = {id: randomId(), photo, guest};
       preview.src = 'data:image/jpeg;base64,' + photo;
       preview.hidden = false;
-      submit.disabled = false;
-      status.textContent = 'Foto siap dikirim.';
+      submit.disabled = remaining <= 0;
+      if (!submit.disabled) status.textContent = 'Foto siap dikirim.';
     } catch {
       if (current === selection) status.textContent = 'Foto belum bisa dibaca. Coba ambil ulang.';
     }
@@ -78,7 +77,7 @@ function startAlbum() {
     } catch {
       status.textContent = remaining === 0 ? 'Kuota 10 foto sudah habis.' : 'Pengiriman belum terkonfirmasi. Coba kirim lagi.';
     } finally {
-      input.disabled = remaining === 0;
+      input.disabled = false;
       submit.disabled = !draft || remaining === 0;
     }
   });
@@ -92,6 +91,7 @@ function startAlbum() {
       if (!receipt.directUpload) throw new Error('Deployment not updated');
       remaining = receipt.remaining;
       input.disabled = remaining === 0;
+      submit.disabled = !draft || remaining <= 0;
       status.textContent = remaining ? 'Sisa kuota: ' + remaining + ' dari 10 foto.' : 'Kuota 10 foto sudah habis.';
     }).catch(() => {
       status.textContent = 'Unggah foto belum tersedia. Coba muat ulang nanti.';
