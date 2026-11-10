@@ -1970,13 +1970,20 @@
       </div>
 
       <section class="section-shell" id="guest-album" data-endpoint="https://script.google.com/macros/s/AKfycbzwnehgfa-cXX5WAn4ExFrc0jefnR15YRi4vI8Tv3qcUHFkizAGBcYfzLgYl9UrjJEj/exec" aria-labelledby="guest-album-title" hidden>
-        <h2 id="guest-album-title">Momen dari Tamu</h2>
+        <p class="story-stack-card__eyebrow">Captured</p>
+        <h2 class="story-stack-card__title" id="guest-album-title">Momen dari Tamu</h2>
         <p>Abadikan momen hari ini dan bagikan ke album bersama. Foto otomatis disimpan setelah kamu memilih untuk memakai hasil jepretan, lalu tampil di album dan bisa dilihat oleh siapa pun yang membuka undangan. Maksimal 10 foto per nama penerima.</p>
         <form>
           <button type="submit" hidden>Coba Lagi</button>
         </form>
         <p role="status"></p>
-        <div data-gallery aria-label="Foto dari tamu"></div>
+        <details class="guest-album-dropdown">
+          <summary>
+            <img data-guest-cover alt="" hidden>
+            <span>Ketuk untuk melihat Momen Tamu</span>
+          </summary>
+          <div data-gallery aria-label="Foto dari tamu">Memuat foto…</div>
+        </details>
       </section>
       <style>
         #guest-album { text-align: center; margin-block: 2rem; }
@@ -1987,10 +1994,14 @@
         .guest-album-camera:focus-within { outline: 2px solid currentColor; outline-offset: 3px; }
         .guest-album-camera input { margin: 0; position: absolute; inset: 0; width: 100%; height: 100%; opacity: 0; cursor: pointer; }
         #guest-album img { max-width: 100%; border-radius: .75rem; }
-        #guest-album [data-gallery] { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 8rem), 1fr)); gap: .75rem; }
+        #guest-album summary { display: grid; justify-items: center; gap: .65rem; width: min(100%, 26rem); margin-inline: auto; padding: .7rem; border: 1px solid rgba(255,255,255,.45); border-radius: 1rem; background: rgba(255,255,255,.18); cursor: pointer; list-style: none; }
+        #guest-album summary::-webkit-details-marker { display: none; }
+        #guest-album [data-guest-cover] { width: 100%; aspect-ratio: 4 / 5; object-fit: cover; }
+        #guest-album summary span { padding: .65rem 1rem; border-radius: .75rem; background: rgba(29,28,26,.86); color: #fff; }
+        #guest-album [data-gallery] { margin-top: 1rem; display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 8rem), 1fr)); gap: .75rem; }
         #guest-album [data-gallery] img { width: 100%; aspect-ratio: 4 / 5; object-fit: cover; }
       </style>
-      <script type="module" src="assets/js/guest-album.js?v=camera-confirm-4"></script>
+      <script type="module" src="assets/js/guest-album.js?v=guest-slideshow-5"></script>
 
       <div class="section-shell album-closing-message reveal">
         <p class="album-closing-message__copy">Merupakan suatu kehormatan dan kebahagiaan bagi kami apabila Bapak/Ibu/Saudara/i berkenan hadir untuk memberikan doa restu.</p>
