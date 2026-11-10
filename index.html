@@ -1954,29 +1954,6 @@
         </div>
       </div>
     
-      <section class="section-shell" id="guest-album" data-endpoint="https://script.google.com/macros/s/AKfycbzwnehgfa-cXX5WAn4ExFrc0jefnR15YRi4vI8Tv3qcUHFkizAGBcYfzLgYl9UrjJEj/exec" aria-labelledby="guest-album-title" hidden>
-        <h2 id="guest-album-title">Momen dari Tamu</h2>
-        <p>Abadikan momen hari ini dan bagikan ke album bersama. Foto otomatis disimpan setelah dipilih, lalu tampil di album dan bisa dilihat oleh siapa pun yang membuka undangan. Maksimal 10 foto per nama penerima.</p>
-        <form>
-          <label for="guest-album-photo">Ambil Foto</label>
-          <input id="guest-album-photo" type="file" accept="image/*" required>
-          <img data-preview hidden alt="Pratinjau foto sebelum dikirim">
-          <button type="submit" hidden>Coba Lagi</button>
-        </form>
-        <p role="status"></p>
-        <div data-gallery aria-label="Foto dari tamu"></div>
-      </section>
-      <style>
-        #guest-album { text-align: center; margin-block: 2rem; }
-        #guest-album form { display: grid; justify-items: center; gap: .75rem; margin-block: 1rem; }
-        #guest-album input { max-width: 100%; }
-        #guest-album img { max-width: 100%; border-radius: .75rem; }
-        #guest-album [data-preview] { width: min(100%, 18rem); }
-        #guest-album [data-gallery] { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 8rem), 1fr)); gap: .75rem; }
-        #guest-album [data-gallery] img { width: 100%; aspect-ratio: 4 / 5; object-fit: cover; }
-      </style>
-      <script type="module" src="assets/js/guest-album.js?v=auto-upload-1"></script>
-
       <div class="section-shell wedding-video">
         <div class="wedding-video__frame" id="wedding-video-frame">
           <button class="wedding-video__preview" type="button" aria-label="Putar video Dhanan dan Berliana" aria-expanded="false"><img src="https://i.ytimg.com/vi/1AHSivban4c/hqdefault.jpg" alt="Video Dhanan dan Berliana" loading="lazy"><span aria-hidden="true">▶</span></button>
@@ -1991,6 +1968,37 @@
         </div>
         <a class="wedding-video__link" href="https://youtube.com/shorts/1AHSivban4c" target="_blank" rel="noopener noreferrer">Tonton di YouTube</a>
       </div>
+
+      <section class="section-shell" id="guest-album" data-endpoint="https://script.google.com/macros/s/AKfycbzwnehgfa-cXX5WAn4ExFrc0jefnR15YRi4vI8Tv3qcUHFkizAGBcYfzLgYl9UrjJEj/exec" aria-labelledby="guest-album-title" hidden>
+        <h2 id="guest-album-title">Momen dari Tamu</h2>
+        <p>Abadikan momen hari ini dan bagikan ke album bersama. Foto otomatis disimpan setelah diambil, lalu tampil di album dan bisa dilihat oleh siapa pun yang membuka undangan. Maksimal 10 foto per nama penerima.</p>
+        <form>
+          <label class="guest-album-camera" for="guest-album-photo">
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M4 7h4l2-3h4l2 3h4a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V9a2 2 0 0 1 2-2Z"/>
+              <circle cx="12" cy="13" r="3.5"/>
+            </svg>
+            <span>Ambil Foto</span>
+            <input id="guest-album-photo" type="file" accept="image/*" capture="environment" required>
+          </label>
+          <img data-preview hidden alt="Pratinjau foto sebelum dikirim">
+          <button type="submit" hidden>Coba Lagi</button>
+        </form>
+        <p role="status"></p>
+        <div data-gallery aria-label="Foto dari tamu"></div>
+      </section>
+      <style>
+        #guest-album { text-align: center; margin-block: 2rem; }
+        #guest-album form { display: grid; justify-items: center; gap: .75rem; margin-block: 1rem; }
+        #guest-album .guest-album-camera { position: relative; display: inline-flex; align-items: center; gap: .65rem; min-height: 48px; padding: .65rem 1.1rem; border: 1px solid currentColor; border-radius: .75rem; cursor: pointer; }
+        #guest-album .guest-album-camera:focus-within { outline: 2px solid currentColor; outline-offset: 3px; }
+        #guest-album .guest-album-camera input { position: absolute; inset: 0; width: 100%; height: 100%; opacity: 0; cursor: pointer; }
+        #guest-album img { max-width: 100%; border-radius: .75rem; }
+        #guest-album [data-preview] { width: min(100%, 18rem); }
+        #guest-album [data-gallery] { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 8rem), 1fr)); gap: .75rem; }
+        #guest-album [data-gallery] img { width: 100%; aspect-ratio: 4 / 5; object-fit: cover; }
+      </style>
+      <script type="module" src="assets/js/guest-album.js?v=auto-upload-1"></script>
 
       <div class="section-shell album-closing-message reveal">
         <p class="album-closing-message__copy">Merupakan suatu kehormatan dan kebahagiaan bagi kami apabila Bapak/Ibu/Saudara/i berkenan hadir untuk memberikan doa restu.</p>
