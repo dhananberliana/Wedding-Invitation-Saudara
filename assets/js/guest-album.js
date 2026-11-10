@@ -12,6 +12,9 @@ function startAlbum() {
   const preview = album.querySelector('[data-preview]');
   const gallery = album.querySelector('[data-gallery]');
   const randomId = () => crypto.randomUUID().replaceAll('-', '');
+  const guest = new URLSearchParams(location.search).get('to')?.trim();
+  let remaining = 0;
+  input.disabled = true;
   let draft;
   let selection = 0;
 
@@ -45,7 +48,7 @@ function startAlbum() {
     try {
       const photo = await preparePhoto(input.files[0]);
       if (current !== selection) return;
-      draft = {id: randomId(), photo};
+      draft = {id: randomId(), photo, guest};
       preview.src = 'data:image/jpeg;base64,' + photo;
       preview.hidden = false;
       submit.disabled = false;
@@ -62,23 +65,41 @@ function startAlbum() {
     status.textContent = 'Mengirim foto…';
     try {
       await fetch(endpoint, {method: 'POST', mode: 'no-cors', body: new URLSearchParams(draft)});
-      const receipt = await readAlbum({id: draft.id});
+      const receipt = await readAlbum({id: draft.id, guest});
+      if (!receipt.directUpload) throw new Error('Deployment not updated');
+      remaining = receipt.remaining;
       if (!receipt.received) throw new Error('Upload not confirmed');
       draft = null;
       form.reset();
       preview.hidden = true;
       preview.removeAttribute('src');
-      status.textContent = 'Foto diterima dan menunggu persetujuan.';
+      status.textContent = 'Foto masuk ke album. Sisa kuota: ' + remaining + ' foto.';
+      refreshGallery();
     } catch {
-      status.textContent = 'Pengiriman belum terkonfirmasi. Coba kirim lagi.';
+      status.textContent = remaining === 0 ? 'Kuota 10 foto sudah habis.' : 'Pengiriman belum terkonfirmasi. Coba kirim lagi.';
     } finally {
-      input.disabled = false;
-      submit.disabled = !draft;
+      input.disabled = remaining === 0;
+      submit.disabled = !draft || remaining === 0;
     }
   });
 
   album.hidden = false;
-  readAlbum().then(({photos}) => {
+  refreshGallery();
+  if (!guest || guest.length > 160) {
+    status.textContent = 'Buka tautan undangan yang mencantumkan nama penerima untuk mengirim foto.';
+  } else {
+    readAlbum({id: randomId(), guest}).then(receipt => {
+      if (!receipt.directUpload) throw new Error('Deployment not updated');
+      remaining = receipt.remaining;
+      input.disabled = remaining === 0;
+      status.textContent = remaining ? 'Sisa kuota: ' + remaining + ' dari 10 foto.' : 'Kuota 10 foto sudah habis.';
+    }).catch(() => {
+      status.textContent = 'Unggah foto belum tersedia. Coba muat ulang nanti.';
+    });
+  }
+
+  function refreshGallery() {
+    readAlbum().then(({photos}) => {
     gallery.replaceChildren(...photos.map(photo => {
       const img = document.createElement('img');
       img.src = 'data:image/jpeg;base64,' + photo;
@@ -86,10 +107,11 @@ function startAlbum() {
       img.loading = 'lazy';
       return img;
     }));
-    if (!photos.length) gallery.textContent = 'Foto yang disetujui akan muncul di sini.';
+    if (!photos.length) gallery.textContent = 'Foto dari tamu akan muncul di sini.';
   }).catch(() => {
     gallery.textContent = 'Galeri belum bisa dimuat. Coba muat ulang halaman.';
-  });
+    });
+  }
 }
 
 async function preparePhoto(file) {
