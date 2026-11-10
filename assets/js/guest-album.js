@@ -6,7 +6,7 @@ if (endpoint && /^https:\/\/script\.google\.com\/macros\/s\/[\w-]+\/exec$/.test(
 
 function startAlbum() {
   const form = album.querySelector('form');
-  const input = form.querySelector('input[type=file]');
+  const input = document.getElementById('guest-album-photo');
   const submit = form.querySelector('button');
   const status = album.querySelector('[role=status]');
   const preview = album.querySelector('[data-preview]');
@@ -110,6 +110,7 @@ function startAlbum() {
   }
 
   album.hidden = false;
+  input.closest('.guest-album-camera').hidden = !validGuest;
   refreshGallery();
   if (!validGuest) {
     status.textContent = 'Buka tautan undangan yang mencantumkan nama penerima untuk mengirim foto.';
