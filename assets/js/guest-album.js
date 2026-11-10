@@ -107,8 +107,41 @@ function startAlbum() {
   const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
   let sources = [];
   let slide = 0;
+  let gallerySlide = 0;
+  const dialog = album.querySelector('[data-guest-dialog]');
+  const detailImage = dialog.querySelector('img');
+  const download = dialog.querySelector('a[download]');
+  dialog.querySelector('button').addEventListener('click', () => dialog.close());
+  dialog.addEventListener('click', event => {
+    if (event.target === dialog) dialog.close();
+  });
+  gallery.addEventListener('click', event => {
+    const button = event.target.closest('button[data-photo-index]');
+    if (!button) return;
+    const index = Number(button.dataset.photoIndex);
+    detailImage.src = sources[index];
+    download.href = sources[index];
+    download.download = 'Momen-Tamu-' + (index + 1) + '.jpg';
+    dialog.showModal();
+  });
+
+  function renderGuestSlides() {
+    const track = gallery.querySelector('.album-auto-slider__track');
+    if (!track) return;
+    const visible = Math.min(3, sources.length);
+    track.style.transform = 'translateX(-' + (gallerySlide * 100 / visible) + '%)';
+    track.querySelectorAll('.album-auto-slider__slide').forEach((card, index) => {
+      card.classList.toggle('is-center', index === gallerySlide + Math.floor(visible / 2));
+    });
+  }
   window.setInterval(() => {
-    if (!cover || document.hidden || reduceMotion.matches || sources.length < 2) return;
+    if (document.hidden || reduceMotion.matches || dialog.open || sources.length <= 3 ||
+        !album.querySelector('details').open) return;
+    gallerySlide = (gallerySlide + 1) % (sources.length - 2);
+    renderGuestSlides();
+  }, 3500);
+  window.setInterval(() => {
+    if (!cover || document.hidden || dialog.open || reduceMotion.matches || sources.length < 2) return;
     slide = (slide + 1) % sources.length;
     cover.src = sources[slide];
   }, 3500);
@@ -134,13 +167,31 @@ function startAlbum() {
       cover.hidden = !sources.length;
       if (sources.length) cover.src = sources[0];
     }
-    gallery.replaceChildren(...photos.map(photo => {
+    const viewport = document.createElement('div');
+    viewport.className = 'album-auto-slider__viewport';
+    const track = document.createElement('div');
+    track.className = 'album-auto-slider__track';
+    sources.forEach((src, index) => {
+      const card = document.createElement('div');
+      card.className = 'album-auto-slider__slide';
+      card.style.flexBasis = (100 / Math.min(3, sources.length)) + '%';
+      const button = document.createElement('button');
+      button.type = 'button';
+      button.className = 'album-photo-open';
+      button.dataset.photoIndex = String(index);
+      button.setAttribute('aria-label', 'Lihat foto tamu ' + (index + 1));
       const img = document.createElement('img');
-      img.src = 'data:image/jpeg;base64,' + photo;
+      img.src = src;
       img.alt = 'Foto momen dari tamu';
       img.loading = 'lazy';
-      return img;
-    }));
+      button.append(img);
+      card.append(button);
+      track.append(card);
+    });
+    viewport.append(track);
+    gallery.replaceChildren(viewport);
+    gallerySlide = 0;
+    renderGuestSlides();
     if (!photos.length) gallery.textContent = 'Foto dari tamu akan muncul di sini.';
   }).catch(() => {
     gallery.textContent = 'Galeri belum bisa dimuat. Coba muat ulang halaman.';
