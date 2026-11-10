@@ -15,7 +15,7 @@ function startAlbum() {
   const guest = new URLSearchParams(location.search).get('to')?.trim();
   let remaining = 0;
   let draft;
-  let selection = 0;
+  let busy = false;
 
   function readAlbum(params = {}) {
     return new Promise((resolve, reject) => {
@@ -37,31 +37,61 @@ function startAlbum() {
     });
   }
 
+  const validGuest = guest && guest.length <= 160;
+  const quota = validGuest ? readAlbum({id: randomId(), guest}).then(receipt => {
+    if (!receipt.directUpload) return false;
+    remaining = receipt.remaining;
+    if (!busy) status.textContent = remaining ? 'Sisa kuota: ' + remaining + ' dari 10 foto.' : 'Kuota 10 foto sudah habis.';
+    return true;
+  }).catch(() => {
+    if (!busy) status.textContent = 'Unggah foto belum tersedia. Coba muat ulang halaman.';
+    return false;
+  }) : Promise.resolve(false);
+
   input.addEventListener('change', async () => {
-    const current = ++selection;
+    const file = input.files[0];
+    if (!file || busy || !validGuest) return;
+    busy = input.disabled = true;
+    submit.hidden = true;
     draft = null;
-    submit.disabled = true;
     preview.hidden = true;
-    if (!input.files[0]) return;
     status.textContent = 'Menyiapkan foto…';
     try {
-      const photo = await preparePhoto(input.files[0]);
-      if (current !== selection) return;
+      if (!await quota) {
+        status.textContent = 'Unggah foto belum tersedia. Coba muat ulang halaman.';
+        return;
+      }
+      if (remaining <= 0) {
+        status.textContent = 'Kuota 10 foto sudah habis.';
+        return;
+      }
+      const photo = await preparePhoto(file);
       draft = {id: randomId(), photo, guest};
       preview.src = 'data:image/jpeg;base64,' + photo;
       preview.hidden = false;
-      submit.disabled = remaining <= 0;
-      if (!submit.disabled) status.textContent = 'Foto siap dikirim.';
+      await uploadDraft();
     } catch {
-      if (current === selection) status.textContent = 'Foto belum bisa dibaca. Coba ambil ulang.';
+      status.textContent = 'Foto belum bisa dibaca. Coba pilih ulang.';
+    } finally {
+      input.value = '';
+      busy = input.disabled = false;
     }
   });
 
   form.addEventListener('submit', async event => {
     event.preventDefault();
-    if (!draft || submit.disabled) return;
-    submit.disabled = input.disabled = true;
-    status.textContent = 'Mengirim foto…';
+    if (!draft || busy || remaining <= 0) return;
+    busy = input.disabled = true;
+    try {
+      await uploadDraft();
+    } finally {
+      busy = input.disabled = false;
+    }
+  });
+
+  async function uploadDraft() {
+    submit.hidden = true;
+    status.textContent = 'Menyimpan foto…';
     try {
       await fetch(endpoint, {method: 'POST', mode: 'no-cors', body: new URLSearchParams(draft)});
       const receipt = await readAlbum({id: draft.id, guest});
@@ -69,33 +99,20 @@ function startAlbum() {
       remaining = receipt.remaining;
       if (!receipt.received) throw new Error('Upload not confirmed');
       draft = null;
-      form.reset();
       preview.hidden = true;
       preview.removeAttribute('src');
       status.textContent = 'Foto masuk ke album. Sisa kuota: ' + remaining + ' foto.';
       refreshGallery();
     } catch {
-      status.textContent = remaining === 0 ? 'Kuota 10 foto sudah habis.' : 'Pengiriman belum terkonfirmasi. Coba kirim lagi.';
-    } finally {
-      input.disabled = false;
-      submit.disabled = !draft || remaining === 0;
+      submit.hidden = remaining <= 0;
+      status.textContent = remaining <= 0 ? 'Kuota 10 foto sudah habis.' : 'Penyimpanan belum terkonfirmasi. Coba lagi.';
     }
-  });
+  }
 
   album.hidden = false;
   refreshGallery();
-  if (!guest || guest.length > 160) {
+  if (!validGuest) {
     status.textContent = 'Buka tautan undangan yang mencantumkan nama penerima untuk mengirim foto.';
-  } else {
-    readAlbum({id: randomId(), guest}).then(receipt => {
-      if (!receipt.directUpload) throw new Error('Deployment not updated');
-      remaining = receipt.remaining;
-      input.disabled = remaining === 0;
-      submit.disabled = !draft || remaining <= 0;
-      status.textContent = remaining ? 'Sisa kuota: ' + remaining + ' dari 10 foto.' : 'Kuota 10 foto sudah habis.';
-    }).catch(() => {
-      status.textContent = 'Unggah foto belum tersedia. Coba muat ulang nanti.';
-    });
   }
 
   function refreshGallery() {
