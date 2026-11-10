@@ -103,6 +103,16 @@ function startAlbum() {
     }
   }
 
+  const cover = album.querySelector('[data-guest-cover]');
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+  let sources = [];
+  let slide = 0;
+  window.setInterval(() => {
+    if (!cover || document.hidden || reduceMotion.matches || sources.length < 2) return;
+    slide = (slide + 1) % sources.length;
+    cover.src = sources[slide];
+  }, 3500);
+
   album.hidden = false;
   input.closest('.guest-album-camera').hidden = false;
   if (!validGuest) {
@@ -118,6 +128,12 @@ function startAlbum() {
 
   function refreshGallery() {
     readAlbum().then(({photos}) => {
+    sources = photos.map(photo => 'data:image/jpeg;base64,' + photo);
+    slide = 0;
+    if (cover) {
+      cover.hidden = !sources.length;
+      if (sources.length) cover.src = sources[0];
+    }
     gallery.replaceChildren(...photos.map(photo => {
       const img = document.createElement('img');
       img.src = 'data:image/jpeg;base64,' + photo;
