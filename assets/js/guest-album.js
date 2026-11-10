@@ -110,7 +110,13 @@ function startAlbum() {
   }
 
   album.hidden = false;
-  input.closest('.guest-album-camera').hidden = !validGuest;
+  input.closest('.guest-album-camera').hidden = false;
+  if (!validGuest) {
+    input.addEventListener('click', event => {
+      event.preventDefault();
+      album.scrollIntoView({block: 'start'});
+    });
+  }
   refreshGallery();
   if (!validGuest) {
     status.textContent = 'Buka tautan undangan yang mencantumkan nama penerima untuk mengirim foto.';
