@@ -1970,6 +1970,7 @@
       </div>
 
       <section class="section-shell" id="guest-album" data-endpoint="https://script.google.com/macros/s/AKfycbzwnehgfa-cXX5WAn4ExFrc0jefnR15YRi4vI8Tv3qcUHFkizAGBcYfzLgYl9UrjJEj/exec" aria-labelledby="guest-album-title" hidden>
+        <div class="guest-album-card">
         <p class="story-stack-card__eyebrow">Captured</p>
         <h2 class="story-stack-card__title" id="guest-album-title">Momen dari Tamu</h2>
         <p>Abadikan momen hari ini dan bagikan ke album bersama, Quota maksimal 10 foto per nama penerima.</p>
@@ -1984,9 +1985,12 @@
           </summary>
           <div data-gallery aria-label="Foto dari tamu">Memuat foto…</div>
         </details>
+        </div>
       </section>
       <style>
         #guest-album { text-align: center; margin-block: 2rem; }
+        #guest-album .guest-album-card { width: min(100%, 28rem); box-sizing: border-box; margin-inline: auto; padding: clamp(1rem, 4vw, 1.75rem); border: 1px solid rgba(255,255,255,.45); border-radius: 1.25rem; background: rgba(255,255,255,.18); }
+        #guest-album .guest-album-card > [role="status"] { margin: .75rem 0 1rem; }
         #guest-album form { display: grid; justify-items: center; gap: .75rem; margin-block: 1rem; }
         .guest-album-camera { position: fixed; z-index: 700; right: max(1rem, env(safe-area-inset-right)); bottom: calc(max(1rem, env(safe-area-inset-bottom)) + 3.65rem); display: grid; place-items: center; width: 3rem; height: 3rem; padding: 0; border: 1px solid rgba(255,255,255,.2); border-radius: 50%; background: rgba(29,28,26,.86); color: #fff; cursor: pointer; }
         .guest-album-camera[hidden], html.is-initial-loading .guest-album-camera, body.is-locked .guest-album-camera { display: none; }
