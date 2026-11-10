@@ -9,7 +9,6 @@ function startAlbum() {
   const input = document.getElementById('guest-album-photo');
   const submit = form.querySelector('button');
   const status = album.querySelector('[role=status]');
-  const preview = album.querySelector('[data-preview]');
   const gallery = album.querySelector('[data-gallery]');
   const randomId = () => crypto.randomUUID().replaceAll('-', '');
   const guest = new URLSearchParams(location.search).get('to')?.trim();
@@ -54,7 +53,6 @@ function startAlbum() {
     busy = input.disabled = true;
     submit.hidden = true;
     draft = null;
-    preview.hidden = true;
     status.textContent = 'Menyiapkan foto…';
     try {
       if (!await quota) {
@@ -67,8 +65,6 @@ function startAlbum() {
       }
       const photo = await preparePhoto(file);
       draft = {id: randomId(), photo, guest};
-      preview.src = 'data:image/jpeg;base64,' + photo;
-      preview.hidden = false;
       await uploadDraft();
     } catch {
       status.textContent = 'Foto belum bisa dibaca. Coba pilih ulang.';
@@ -99,8 +95,6 @@ function startAlbum() {
       remaining = receipt.remaining;
       if (!receipt.received) throw new Error('Upload not confirmed');
       draft = null;
-      preview.hidden = true;
-      preview.removeAttribute('src');
       status.textContent = 'Foto masuk ke album. Sisa kuota: ' + remaining + ' foto.';
       refreshGallery();
     } catch {
