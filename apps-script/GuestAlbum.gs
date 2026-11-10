@@ -4,7 +4,7 @@
 function setupGuestAlbum() {
   const props = PropertiesService.getScriptProperties();
   if (props.getProperty('APPROVED')) return;
-  const root = DriveApp.createFolder('Momen dari Tamu');
+  const root = DriveApp.getFolderById('10DH6kx6PAZGdig2sOAHCgSzqhlgGnQHJ');
   props.setProperties({
     PENDING: root.createFolder('Pending').getId(),
     APPROVED: root.createFolder('Approved').getId()
