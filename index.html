@@ -1983,8 +1983,13 @@
             <img data-guest-cover alt="" hidden>
             <span>Ketuk untuk melihat Momen Tamu</span>
           </summary>
-          <div data-gallery aria-label="Foto dari tamu">Memuat foto…</div>
+          <div class="album-auto-slider" data-gallery aria-label="Foto dari tamu">Memuat foto…</div>
         </details>
+        <dialog class="album-photo-dialog" data-guest-dialog aria-label="Foto Momen dari Tamu">
+          <button class="album-photo-dialog__close" type="button" aria-label="Tutup foto">×</button>
+          <a class="album-photo-dialog__download" download aria-label="Download foto">↓</a>
+          <img class="album-photo-dialog__image" alt="Foto Momen dari Tamu">
+        </dialog>
         </div>
       </section>
       <style>
@@ -2002,10 +2007,12 @@
         #guest-album summary::-webkit-details-marker { display: none; }
         #guest-album [data-guest-cover] { width: 100%; aspect-ratio: 4 / 5; object-fit: cover; }
         #guest-album summary span { padding: .65rem 1rem; border-radius: .75rem; background: rgba(29,28,26,.86); color: #fff; }
-        #guest-album [data-gallery] { margin-top: 1rem; display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 8rem), 1fr)); gap: .75rem; }
-        #guest-album [data-gallery] img { width: 100%; aspect-ratio: 4 / 5; object-fit: cover; }
+        #guest-album [data-gallery] { display: block; width: 100%; margin-top: 1rem; }
+        #guest-album [data-gallery] img { display: block; width: 100%; aspect-ratio: 2 / 3; object-fit: cover; }
+        #guest-album .album-photo-dialog img { max-width: 100%; max-height: 85vh; width: auto; object-fit: contain; }
+        #guest-album [data-gallery] button { width: 100%; }
       </style>
-      <script type="module" src="assets/js/guest-album.js?v=guest-slideshow-5"></script>
+      <script type="module" src="assets/js/guest-album.js?v=guest-cards-6"></script>
 
       <div class="section-shell album-closing-message reveal">
         <p class="album-closing-message__copy">Merupakan suatu kehormatan dan kebahagiaan bagi kami apabila Bapak/Ibu/Saudara/i berkenan hadir untuk memberikan doa restu.</p>
