@@ -1956,7 +1956,7 @@
     
       <section class="section-shell" id="guest-album" data-endpoint="https://script.google.com/macros/s/AKfycbzwnehgfa-cXX5WAn4ExFrc0jefnR15YRi4vI8Tv3qcUHFkizAGBcYfzLgYl9UrjJEj/exec" aria-labelledby="guest-album-title" hidden>
         <h2 id="guest-album-title">Momen dari Tamu</h2>
-        <p>Abadikan momen hari ini dan bagikan ke album bersama. Foto yang disetujui dapat dilihat oleh siapa pun yang membuka undangan.</p>
+        <p>Abadikan momen hari ini dan bagikan ke album bersama. Foto langsung tampil di album dan bisa dilihat oleh siapa pun yang membuka undangan. Maksimal 10 foto per nama penerima.</p>
         <form>
           <label for="guest-album-photo">Ambil Foto</label>
           <input id="guest-album-photo" type="file" accept="image/*" capture="environment" required>
@@ -1975,7 +1975,7 @@
         #guest-album [data-gallery] { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 8rem), 1fr)); gap: .75rem; }
         #guest-album [data-gallery] img { width: 100%; aspect-ratio: 4 / 5; object-fit: cover; }
       </style>
-      <script type="module" src="assets/js/guest-album.js"></script>
+      <script type="module" src="assets/js/guest-album.js?v=direct-10"></script>
 
       <div class="section-shell wedding-video">
         <div class="wedding-video__frame" id="wedding-video-frame">
