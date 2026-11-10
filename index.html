@@ -1971,9 +1971,8 @@
 
       <section class="section-shell" id="guest-album" data-endpoint="https://script.google.com/macros/s/AKfycbzwnehgfa-cXX5WAn4ExFrc0jefnR15YRi4vI8Tv3qcUHFkizAGBcYfzLgYl9UrjJEj/exec" aria-labelledby="guest-album-title" hidden>
         <h2 id="guest-album-title">Momen dari Tamu</h2>
-        <p>Abadikan momen hari ini dan bagikan ke album bersama. Foto otomatis disimpan setelah diambil, lalu tampil di album dan bisa dilihat oleh siapa pun yang membuka undangan. Maksimal 10 foto per nama penerima.</p>
+        <p>Abadikan momen hari ini dan bagikan ke album bersama. Foto otomatis disimpan setelah kamu memilih untuk memakai hasil jepretan, lalu tampil di album dan bisa dilihat oleh siapa pun yang membuka undangan. Maksimal 10 foto per nama penerima.</p>
         <form>
-          <img data-preview hidden alt="Pratinjau foto sebelum dikirim">
           <button type="submit" hidden>Coba Lagi</button>
         </form>
         <p role="status"></p>
@@ -1988,11 +1987,10 @@
         .guest-album-camera:focus-within { outline: 2px solid currentColor; outline-offset: 3px; }
         .guest-album-camera input { margin: 0; position: absolute; inset: 0; width: 100%; height: 100%; opacity: 0; cursor: pointer; }
         #guest-album img { max-width: 100%; border-radius: .75rem; }
-        #guest-album [data-preview] { width: min(100%, 18rem); }
         #guest-album [data-gallery] { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 8rem), 1fr)); gap: .75rem; }
         #guest-album [data-gallery] img { width: 100%; aspect-ratio: 4 / 5; object-fit: cover; }
       </style>
-      <script type="module" src="assets/js/guest-album.js?v=floating-camera-3"></script>
+      <script type="module" src="assets/js/guest-album.js?v=camera-confirm-4"></script>
 
       <div class="section-shell album-closing-message reveal">
         <p class="album-closing-message__copy">Merupakan suatu kehormatan dan kebahagiaan bagi kami apabila Bapak/Ibu/Saudara/i berkenan hadir untuk memberikan doa restu.</p>
