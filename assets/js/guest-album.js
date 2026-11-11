@@ -239,13 +239,21 @@ async function preparePhoto(file) {
     if (!context) throw new Error('Canvas unavailable');
     context.drawImage(image, 0, 0, canvas.width, canvas.height);
 
-    // Gently warm the photo before saving it to the album.
+    // Lift the midtones gently and keep highlights neutral.
     const frame = context.getImageData(0, 0, canvas.width, canvas.height);
     const pixels = frame.data;
     for (let index = 0; index < pixels.length; index += 4) {
-      pixels[index] *= 1.035;
-      pixels[index + 1] *= 1.008;
-      pixels[index + 2] *= 0.96;
+      const red = pixels[index];
+      const green = pixels[index + 1];
+      const blue = pixels[index + 2];
+      const luminance = 0.2126 * red + 0.7152 * green + 0.0722 * blue;
+      const tone = luminance / 255;
+      const midtoneWeight = 4 * tone * (1 - tone);
+      const lift = 11 * midtoneWeight;
+      const warmth = 2.5 * midtoneWeight;
+      pixels[index] = luminance + (red - luminance) * 0.96 + lift + warmth;
+      pixels[index + 1] = luminance + (green - luminance) * 0.96 + lift;
+      pixels[index + 2] = luminance + (blue - luminance) * 0.96 + lift - warmth;
     }
     context.putImageData(frame, 0, 0);
     for (const quality of [0.8, 0.65, 0.5, 0.35]) {
