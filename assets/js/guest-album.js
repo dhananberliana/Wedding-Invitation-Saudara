@@ -103,11 +103,10 @@ function startAlbum() {
     }
   }
 
-  const cover = album.querySelector('[data-guest-cover]');
+  const covers = Array.from(album.querySelectorAll('[data-guest-cover]'));
   const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
   let sources = [];
   let slide = 0;
-  let gallerySlide = 0;
   const dialog = album.querySelector('[data-guest-dialog]');
   const detailImage = dialog.querySelector('img');
   const download = dialog.querySelector('a[download]');
@@ -125,25 +124,17 @@ function startAlbum() {
     dialog.showModal();
   });
 
-  function renderGuestSlides() {
-    const track = gallery.querySelector('.album-auto-slider__track');
-    if (!track) return;
-    const visible = Math.min(3, sources.length);
-    track.style.transform = 'translateX(-' + (gallerySlide * 100 / visible) + '%)';
-    track.querySelectorAll('.album-auto-slider__slide').forEach((card, index) => {
-      card.classList.toggle('is-center', index === gallerySlide + Math.floor(visible / 2));
+  function renderGuestCover() {
+    covers.forEach((image, offset) => {
+      image.hidden = sources.length === 0;
+      if (sources.length) image.src = sources[(slide + offset) % sources.length];
+      else image.removeAttribute('src');
     });
   }
   window.setInterval(() => {
-    if (document.hidden || reduceMotion.matches || dialog.open || sources.length <= 3 ||
-        !album.querySelector('details').open) return;
-    gallerySlide = (gallerySlide + 1) % (sources.length - 2);
-    renderGuestSlides();
-  }, 3500);
-  window.setInterval(() => {
-    if (!cover || document.hidden || dialog.open || reduceMotion.matches || sources.length < 2) return;
+    if (document.hidden || dialog.open || reduceMotion.matches || sources.length < 2) return;
     slide = (slide + 1) % sources.length;
-    cover.src = sources[slide];
+    renderGuestCover();
   }, 3500);
 
   album.hidden = false;
@@ -163,18 +154,11 @@ function startAlbum() {
     readAlbum().then(({photos}) => {
     sources = photos.map(photo => 'data:image/jpeg;base64,' + photo);
     slide = 0;
-    if (cover) {
-      cover.hidden = !sources.length;
-      if (sources.length) cover.src = sources[0];
-    }
-    const viewport = document.createElement('div');
-    viewport.className = 'album-auto-slider__viewport';
-    const track = document.createElement('div');
-    track.className = 'album-auto-slider__track';
+    renderGuestCover();
+    const cards = [];
     sources.forEach((src, index) => {
       const card = document.createElement('div');
-      card.className = 'album-auto-slider__slide';
-      card.style.flexBasis = (100 / Math.min(3, sources.length)) + '%';
+      card.className = 'guest-photo-card';
       const button = document.createElement('button');
       button.type = 'button';
       button.className = 'album-photo-open';
@@ -186,12 +170,9 @@ function startAlbum() {
       img.loading = 'lazy';
       button.append(img);
       card.append(button);
-      track.append(card);
+      cards.push(card);
     });
-    viewport.append(track);
-    gallery.replaceChildren(viewport);
-    gallerySlide = 0;
-    renderGuestSlides();
+    gallery.replaceChildren(...cards);
     if (!photos.length) gallery.textContent = 'Foto dari tamu akan muncul di sini.';
   }).catch(() => {
     gallery.textContent = 'Galeri belum bisa dimuat. Coba muat ulang halaman.';
