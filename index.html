@@ -1975,6 +1975,10 @@
         <h2 class="story-stack-card__title" id="guest-album-title">Momen dari Tamu</h2>
         <p>Abadikan momen hari ini dan bagikan ke album bersama, Quota maksimal 10 foto per nama penerima.</p>
         <form>
+          <label class="guest-album-gallery-picker" hidden>
+            Pilih foto dari galeri
+            <input id="guest-album-file" type="file" accept="image/*">
+          </label>
           <button type="submit" hidden>Coba Lagi</button>
         </form>
         <p role="status"></p>
@@ -2006,6 +2010,9 @@
         .guest-album-camera span { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); }
         .guest-album-camera:focus-within { outline: 2px solid currentColor; outline-offset: 3px; }
         .guest-album-camera input { margin: 0; position: absolute; inset: 0; width: 100%; height: 100%; opacity: 0; cursor: pointer; }
+        #guest-album .guest-album-gallery-picker { position: relative; padding: .65rem 1rem; border: 1px solid currentColor; border-radius: .75rem; cursor: pointer; }
+        #guest-album .guest-album-gallery-picker input { position: absolute; inset: 0; width: 100%; height: 100%; opacity: 0; cursor: pointer; }
+        #guest-album .guest-album-gallery-picker:focus-within { outline: 2px solid currentColor; outline-offset: 3px; }
         #guest-album img { max-width: 100%; border-radius: .75rem; }
         #guest-album summary { position: relative; display: block; width: min(100%, 26rem); margin: 1.5rem auto; padding: 0; border: 0; background: transparent; cursor: pointer; list-style: none; }
         #guest-album summary::-webkit-details-marker { display: none; }
@@ -2021,7 +2028,7 @@
         #guest-album .album-photo-dialog img { max-width: 100%; max-height: 85vh; width: auto; object-fit: contain; }
         #guest-album [data-gallery] button { width: 100%; }
       </style>
-      <script type="module" src="assets/js/guest-album.js?v=warm-photo-9"></script>
+      <script type="module" src="assets/js/guest-album.js?v=gallery-fallback-10"></script>
 
       <div class="section-shell album-closing-message reveal">
         <p class="album-closing-message__copy">Merupakan suatu kehormatan dan kebahagiaan bagi kami apabila Bapak/Ibu/Saudara/i berkenan hadir untuk memberikan doa restu.</p>
