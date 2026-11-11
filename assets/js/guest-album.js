@@ -110,6 +110,36 @@ function startAlbum() {
   const dialog = album.querySelector('[data-guest-dialog]');
   const detailImage = dialog.querySelector('img');
   const download = dialog.querySelector('a[download]');
+  let photoUrl = null;
+  let photoFile = null;
+  const releasePhoto = () => {
+    if (photoUrl) URL.revokeObjectURL(photoUrl);
+    photoUrl = null;
+    photoFile = null;
+    download.removeAttribute('href');
+  };
+  dialog.addEventListener('close', releasePhoto);
+  download.addEventListener('click', async event => {
+    if (!photoFile) {
+      event.preventDefault();
+      return;
+    }
+    if (navigator.canShare?.({files: [photoFile]}) &&
+        window.matchMedia('(pointer: coarse)').matches) {
+      event.preventDefault();
+      try {
+        await navigator.share({files: [photoFile], title: 'Momen dari Tamu'});
+      } catch (error) {
+        if (error.name === 'AbortError') return;
+        const link = document.createElement('a');
+        link.href = photoUrl;
+        link.download = photoFile.name;
+        dialog.append(link);
+        link.click();
+        link.remove();
+      }
+    }
+  });
   dialog.querySelector('button').addEventListener('click', () => dialog.close());
   dialog.addEventListener('click', event => {
     if (event.target === dialog) dialog.close();
@@ -119,8 +149,13 @@ function startAlbum() {
     if (!button) return;
     const index = Number(button.dataset.photoIndex);
     detailImage.src = sources[index];
-    download.href = sources[index];
-    download.download = 'Momen-Tamu-' + (index + 1) + '.jpg';
+    releasePhoto();
+    const bytes = Uint8Array.from(atob(sources[index].split(',')[1]), char => char.charCodeAt(0));
+    const name = 'Momen-Tamu-' + (index + 1) + '.jpg';
+    photoFile = new File([bytes], name, {type: 'image/jpeg'});
+    photoUrl = URL.createObjectURL(photoFile);
+    download.href = photoUrl;
+    download.download = name;
     dialog.showModal();
   });
 
