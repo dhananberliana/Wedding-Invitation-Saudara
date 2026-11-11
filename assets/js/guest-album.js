@@ -7,6 +7,7 @@ if (endpoint && /^https:\/\/script\.google\.com\/macros\/s\/[\w-]+\/exec$/.test(
 function startAlbum() {
   const form = album.querySelector('form');
   const input = document.getElementById('guest-album-photo');
+  const galleryInput = document.getElementById('guest-album-file');
   const submit = form.querySelector('button');
   const status = album.querySelector('[role=status]');
   const gallery = album.querySelector('[data-gallery]');
@@ -47,10 +48,12 @@ function startAlbum() {
     return false;
   }) : Promise.resolve(false);
 
-  input.addEventListener('change', async () => {
-    const file = input.files[0];
+  async function handlePhotoSelection(event) {
+    const picker = event.currentTarget;
+    const file = picker.files[0];
     if (!file || busy || !validGuest) return;
     busy = input.disabled = true;
+    if (galleryInput) galleryInput.disabled = true;
     submit.hidden = true;
     draft = null;
     status.textContent = 'Menyiapkan foto…';
@@ -69,19 +72,24 @@ function startAlbum() {
     } catch {
       status.textContent = 'Foto belum bisa dibaca. Coba pilih ulang.';
     } finally {
-      input.value = '';
+      picker.value = '';
       busy = input.disabled = false;
+      if (galleryInput) galleryInput.disabled = false;
     }
-  });
+  }
+  input.addEventListener('change', handlePhotoSelection);
+  galleryInput?.addEventListener('change', handlePhotoSelection);
 
   form.addEventListener('submit', async event => {
     event.preventDefault();
     if (!draft || busy || remaining <= 0) return;
     busy = input.disabled = true;
+    if (galleryInput) galleryInput.disabled = true;
     try {
       await uploadDraft();
     } finally {
       busy = input.disabled = false;
+      if (galleryInput) galleryInput.disabled = false;
     }
   });
 
@@ -173,6 +181,7 @@ function startAlbum() {
   }, 3500);
 
   album.hidden = false;
+  if (galleryInput) galleryInput.closest('label').hidden = !validGuest;
   input.closest('.guest-album-camera').hidden = false;
   if (!validGuest) {
     input.addEventListener('click', event => {
