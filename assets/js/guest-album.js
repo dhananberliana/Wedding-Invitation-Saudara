@@ -226,7 +226,19 @@ async function preparePhoto(file) {
     const scale = Math.min(1, 1024 / Math.max(image.width, image.height));
     canvas.width = Math.max(1, Math.round(image.width * scale));
     canvas.height = Math.max(1, Math.round(image.height * scale));
-    canvas.getContext('2d').drawImage(image, 0, 0, canvas.width, canvas.height);
+    const context = canvas.getContext('2d');
+    if (!context) throw new Error('Canvas unavailable');
+    context.drawImage(image, 0, 0, canvas.width, canvas.height);
+
+    // Gently warm the photo before saving it to the album.
+    const frame = context.getImageData(0, 0, canvas.width, canvas.height);
+    const pixels = frame.data;
+    for (let index = 0; index < pixels.length; index += 4) {
+      pixels[index] *= 1.035;
+      pixels[index + 1] *= 1.008;
+      pixels[index + 2] *= 0.96;
+    }
+    context.putImageData(frame, 0, 0);
     for (const quality of [0.8, 0.65, 0.5, 0.35]) {
       const photo = canvas.toDataURL('image/jpeg', quality).split(',')[1];
       if (photo && photo.length <= 400000) return photo;
