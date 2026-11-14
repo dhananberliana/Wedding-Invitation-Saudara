@@ -2,13 +2,10 @@
 // Deploy as a Web App: execute as Me, access Anyone. Use a dedicated deployment.
 // Keep the Drive folders private. New uploads appear directly in the album.
 function setupGuestAlbum() {
-  const props = PropertiesService.getScriptProperties();
-  if (props.getProperty('APPROVED')) return;
-  const root = DriveApp.getFolderById('10DH6kx6PAZGdig2sOAHCgSzqhlgGnQHJ');
-  props.setProperties({
-    PENDING: root.createFolder('Pending').getId(),
-    APPROVED: root.createFolder('Approved').getId()
-  });
+  const root = DriveApp.getFolderById('17v_T8rhGu9jDwD8VnsgPVYEgYhwGKRbE');
+  const folders = root.getFoldersByName('Approved');
+  const album = folders.hasNext() ? folders.next() : root.createFolder('Approved');
+  PropertiesService.getScriptProperties().setProperty('APPROVED', album.getId());
 }
 
 function doPost(e) {
