@@ -14,13 +14,13 @@ export const WEDDING_CONFIG = Object.freeze({
     title: 'Upacara Pawiwahan Dhanan & Berliana',
 
     date: 'Jumat, 11 Desember 2026',
-    time: '08:00 - Selesai WITA',
+    time: '08.00 - 11.00 WITA',
     venueName: 'Rumah Banjar Dauh Peken, Penarungan',
 
-    displayDateTime: 'Jumat, 11 Desember 2026 • 08:00 WITA',
+    displayDateTime: 'Jumat, 11 Desember 2026 • 08.00 - 11.00 WITA',
 
     start: '2026-12-11T08:00:00+08:00',
-    end: null,
+    end: '2026-12-11T11:00:00+08:00',
 
     venueAddress: 'Rumah Banjar Dauh Peken, Desa Adat Penarungan, Kecamatan Mengwi, Kab. Badung - Bali (Google Maps: G-BOY CELL)',
 
@@ -37,10 +37,10 @@ export const WEDDING_CONFIG = Object.freeze({
       title: 'Upacara Pawiwahan Dhanan & Berliana',
 
       displayDate: 'Jumat, 11 Desember 2026',
-      displayTime: '08:00 - Selesai WITA',
+      displayTime: '08.00 - 11.00 WITA',
 
       start: '2026-12-11T08:00:00+08:00',
-      end: null,
+      end: '2026-12-11T11:00:00+08:00',
 
       venueName: 'Rumah Banjar Dauh Peken, Penarungan',
       venueAddress: 'Rumah Banjar Dauh Peken, Desa Adat Penarungan, Kecamatan Mengwi, Kab. Badung - Bali (Google Maps: G-BOY CELL)',
