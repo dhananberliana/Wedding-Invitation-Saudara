@@ -28,7 +28,7 @@ export const WEDDING_CONFIG = Object.freeze({
       'https://maps.app.goo.gl/hnmXFSc1iyGrRqjJ9',
 
     description:
-      'Dengan penuh sukacita, kami mengundang keluarga dan sahabat untuk hadir dan memberikan doa restu pada rangkaian acara Medarma Suaka dalam Upacara Pawiwahan Dhanan & Berliana.'
+      'Dengan penuh sukacita, kami mengundang keluarga dan sahabat untuk hadir dan memberikan doa restu pada acara Ngidih & Mepamit Dhanan & Berliana.'
   },
 
   events: {
@@ -49,7 +49,7 @@ export const WEDDING_CONFIG = Object.freeze({
         'https://maps.app.goo.gl/hnmXFSc1iyGrRqjJ9',
 
       description:
-        'Dengan penuh sukacita, kami mengundang keluarga dan sahabat untuk hadir dan memberikan doa restu pada rangkaian acara Medarma Suaka dalam Upacara Pawiwahan Dhanan & Berliana.'
+        'Dengan penuh sukacita, kami mengundang keluarga dan sahabat untuk hadir dan memberikan doa restu pada acara Ngidih & Mepamit Dhanan & Berliana.'
     }
   },
 
